@@ -1,0 +1,944 @@
+/* 1. RESET & CHUNG */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif; /* Hoặc font nào bà thích */
+}
+
+body {
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+/* 2. HERO SECTION (PHẦN ĐẦU MÀU ĐỎ) */
+.hero-section {
+    background-color: #750209; /* Màu đỏ đô chuẩn của bà */
+    color: white;
+    padding: 20px 5%;
+    height: auto; 
+    position: relative;
+    overflow: hidden;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between; /* Chia 3 phần: Logo - Menu - Icons */
+    align-items: center;
+    padding: 20px 5%;
+    position: absolute; /* Để nó đè lên nền đỏ của Hero */
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 100;
+}
+.logo {
+    flex: 1; /* Chiếm 1 phần bên trái */
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: white;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 40px; /* Khoảng cách giữa các chữ */
+    flex: 2; /* Chiếm phần lớn ở giữa */
+    justify-content: center; /* CĂN GIỮA ĐÂY NÈ BÀ */
+}
+
+.nav-links li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 20px;
+    letter-spacing: 2px; /* Cho chữ thưa ra nhìn sang hơn */
+    transition: 0.3s;
+}
+.nav-links li a:hover {
+    color: #ccc;
+}
+
+/* Khi lên Mobile thì cho nó gọn lại */
+@media (max-width: 768px) {
+    .nav-links {
+        display: none; /* Mobile thường dùng menu ẩn, nhưng nếu bà muốn hiện thì báo tui */
+    }
+}
+
+
+.nav-right {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 15px;
+}
+
+/* Thanh Search kén tằm */
+.search-container {
+    background: rgba(255, 255, 255, 0.15); /* Màu trắng mờ */
+    display: flex;
+    align-items: center;
+    padding: 8px 15px;
+    border-radius: 12px; /* Bo tròn như cái kén */
+    width: 220px; /* Độ dài thanh search */
+    height: 45px;
+
+}
+
+.search-icon {
+    color: rgba(255, 255, 255, 0.7);
+    margin-right: 10px;
+    font-size: 1rem;
+}
+
+.search-input {
+    background: transparent; /* Trong suốt để lộ màu kén */
+    border: none;
+    outline: none;
+    color: white;
+    font-size: 0.9rem;
+    width: 100%;
+}
+
+.search-input::placeholder {
+    color: rgba(255, 255, 255, 0.5); /* Chữ Search mờ mờ */
+}
+
+/* Icon Giỏ hàng khung vuông */
+.cart-box {
+    background: rgba(255, 255, 255, 0.15);
+    width: 45px;
+    height: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 12px; /* Bo góc vuông nhẹ */
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.cart-box:hover {
+    background: rgba(255, 255, 255, 0.25);
+}
+
+
+/* --- CONTAINER CHÍNH --- */
+.hero-content {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: calc(100vh - 80px); /* Trừ đi chiều cao nav */
+    padding: 0 5%;
+    position: relative; /* Gốc để 2 cái ảnh bám vào */
+    /* KHÔNG để overflow: hidden ở đây nếu bà muốn giày tràn hẳn ra ngoài */
+}
+
+/* --- PHẦN CHỮ --- */
+.hero-text{
+    margin-top: -170px;
+}
+.hero-text {
+    position: relative;
+    max-width: 1000px;
+}
+.hero-text h1{
+    font-size: 48px;
+    margin-bottom: 20px;
+}
+.hero-text p{
+    font-style: italic;
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+.hero-text span{
+    font-size: 12px;
+    font-weight:normal;
+}
+.hero-text h2{
+    font-size: 32px;
+}
+
+/* Nút bấm */
+.btn-shop {
+    background: #111; /* Đổi sang trong suốt cho sang giống hình bà gửi */
+    color: #fff;
+    padding: 15px 45px;
+    border: 2px solid #fff;
+    font-weight: 900;
+    cursor: pointer;
+    margin-top: 30px;
+    border-radius: 4px; /* Sneaker thường để vuông cho khỏe khoắn */
+    transition: 0.3s;
+    text-transform: uppercase;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    transition: 0.3s;
+}
+
+.btn-shop:hover {
+    background: #fff;
+    color: #750209;
+    transform: translateY(-5px);
+}
+
+/* --- KHU VỰC CHỨA 2 CHIẾC GIÀY --- */
+.hero-images-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Để không bị vướng khi bấm nút Shop Now */
+}
+
+/* CHIẾC TO (Bên phải - Nhân vật chính) */
+.shoe-big {
+    position: absolute !important;
+    width: 65% !important;   /* To vượt trội */
+    right: -10% !important;  /* Đẩy sát/tràn ra mép phải */
+    top: 50% !important;
+    transform: translateY(-50%) rotate(-5deg) !important;
+    z-index: 10;
+    filter: drop-shadow(-30px 50px 80px rgba(0,0,0,0.5));
+}
+
+/* CHIẾC NHỎ (Bên trái - Thụt 1/3) */
+.shoe-small {
+    position: absolute !important;
+    width: 45% !important;   /* Nhỏ hơn */
+    left: -10% !important;   /* Thụt vào mép trái để mất 1/3 đôi giày */
+    bottom: -7% !important;   /* Nằm sát phía dưới */
+    z-index: 5;
+    opacity: 0.9;
+    filter: drop-shadow(-10px 20px 40px rgba(0,0,0,0.3));
+}
+
+/* Đảm bảo ảnh không bị méo */
+.hero-images-container img {
+    height: auto;
+    display: block;
+}
+ /* ====NEWS ARRIVALS */
+.arrow-btn {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(255,255,255,0.5);
+    background: transparent;
+    color: #fff;
+    cursor: pointer;
+    transition: 0.3s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.arrow-btn:hover {
+    background: #fff;
+    color: #750209;
+    
+
+}
+/* Chữ See all items bên phải */
+.see-all {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 14px;
+    border-bottom: 1.5px solid #fff; /* Gạch chân cho giống mẫu */
+    padding-bottom: 2px;
+}
+
+
+.na-left {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.na-title {
+    font-size: 50px; /* To và đậm như hình */
+    font-weight: 900;
+    color: #fff;
+    margin: 0;
+}
+
+/* Style cho mấy cái nút mũi tên tròn */
+.na-arrows {
+    display: flex;
+    gap: 15px;
+}
+/* Ép thanh New Arrivals xuống đáy */
+.new-arrivals-header {
+    margin-top: 80px;
+    position: absolute;
+    left: 5%;
+    right: 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    z-index: 100; /* Nằm trên cả giày */
+}
+
+/* --- CONTAINER CHỨA 4 CARD --- */
+
+/* Grid chia đúng 4 cột đều nhau */
+.na-cards-container .product-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* Ép 4 cột trên 1 hàng */
+    gap: 20px;
+    width: 100%;
+    margin-top: 160px;
+}
+.product-card {
+    background: #ffffff;
+    padding: 10px;
+    border-radius: 4px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1); /* Đổ bóng cho nổi khối trên nền trắng */
+    transition: all 0.4s ease;
+    cursor: pointer;
+    border: 1px solid #eee;
+}
+/* Khung ảnh trong card */
+.card-img {
+    padding: 30px 15px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+.card-img img {
+    width: 90%;
+    height: auto;
+    transition: 0.5s;
+}
+/* Icon trái tim */
+.heart-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: #750209;
+    font-size: 20px;
+    transition: 0.3s;
+}
+
+/* --- THÔNG TIN CHỮ TRONG CARD --- */
+.card-info {
+    padding: 15px 5px 10px 5px;
+}
+
+.card-info .category {
+    font-size: 11px;
+    color: #999;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.card-info h3 {
+    font-size: 16px;
+    color: #111;
+    font-weight: 800;
+    margin-bottom: 8px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; /* Nếu tên dài quá thì tự cắt */
+}
+
+.card-info .price {
+    font-size: 15px;
+    font-weight: 700;
+    color: #750209; /* Màu đỏ đô tông xẹt tông với Hero */
+}
+
+/* --- PHẦN GIỚI THIỆU --- */
+.collection-section {
+    padding: 150px 0 50px 0;
+    background: #fff;
+    text-align: center;
+}
+
+.collection-intro {
+    margin-bottom: 60px;
+    padding: 0 5%;
+}
+
+.collection-intro h2 {
+    font-size: 48px;
+    font-weight: 900;
+    margin-bottom: 20px;
+    letter-spacing: -1px;
+}
+
+.collection-intro p {
+    font-size: 16px;
+    line-height: 1.8;
+    color: #333;
+    max-width: 800px;
+    margin: 0 auto;
+    font-style: italic;
+}
+
+/* --- GRID 3 CỘT DỌC --- */
+.collection-grid {
+    display: flex;
+    width: 100%;
+    height: 700px; /* Chiều cao cố định cho cả khối như hình */
+    gap: 0; /* Ảnh sát nhau hoặc bà cho gap: 10px nếu muốn có kẽ hở */
+}
+
+.collection-item {
+    flex: 1; /* Chia đều 3 cột */
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.collection-item img {
+    width: 100%;
+    height: 100%;
+    background-position: bottom center;
+    object-fit: cover; /* Quan trọng: để ảnh không bị méo khi lấp đầy khung */
+    transition: transform 0.8s ease;
+}
+
+/* Hiệu ứng zoom nhẹ khi hover */
+.collection-item:hover img {
+    transform: scale(1.05);
+}
+
+/* --- NÚT BẤM TRÊN ẢNH --- */
+.collection-btn {
+    position: absolute;
+    bottom: 50px; /* Cách đáy ảnh */
+    left: 50%;
+    transform: translateX(-50%); /* Căn giữa nút */
+    background: #fff;
+    color: #111;
+    padding: 12px 40px;
+    font-size: 20px;
+    font-weight: 900;
+    text-transform: uppercase;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    transition: 0.3s;
+}
+
+.collection-item:hover .collection-btn {
+    background: #111;
+    color: #fff;
+}
+
+
+/* --- BANNER QUẢNG BÁ --- */
+.promo-banner {
+    padding: 60px 5%;
+    background: #fff; /* Nền ngoài màu trắng để banner đỏ nổi bật */
+}
+
+.promo-container {
+    background-color: #750209; /* Màu đỏ đô thương hiệu của bà */
+    border-radius: 20px;       /* Bo góc nhẹ cho hiện đại */
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 40px 5%;
+    min-height: 400px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* --- PHẦN ẢNH BÊN TRÁI --- */
+.promo-image {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.promo-image img {
+    width: 120%; /* Cho ảnh hơi to ra một tí */
+    height: auto;
+}
+
+/* --- PHẦN CHỮ BÊN PHẢI --- */
+.promo-content {
+    flex: 1;
+    color: #fff;
+    padding-left: 200px;
+}
+
+.promo-badge {
+    font-size: 24px;
+    font-weight: 900;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+}
+
+.promo-date {
+    font-size: 42px;
+    font-weight: 900;
+    margin-bottom: 30px;
+}
+
+.promo-desc {
+    font-size: 16px;
+    line-height: 1.8;
+    margin-bottom: 35px;
+    opacity: 0.9;
+}
+
+/* --- NÚT BẤM MÀU TRẮNG CHỮ HỒNG --- */
+.btn-reserve {
+    background: #111;
+    color: #fff; /* Màu hồng nhạt như trong hình bà gửi nè */
+    border: 2px solid #fff;
+    padding: 15px 60px;
+    font-size: 18px;
+    font-weight: 900;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-reserve:hover {
+    background: #fff;
+    color: #750209;
+    transform: translateY(-5px);
+}
+
+/* Responsive cho điện thoại */
+@media (max-width: 768px) {
+    .promo-container {
+        flex-direction: column;
+        text-align: center;
+        padding: 40px 20px;
+    }
+    .promo-content {
+        padding-left: 0;
+        margin-top: 30px;
+    }
+    .promo-date { font-size: 30px; }
+}
+
+/* ======RECOMMEND====== */
+/* --- PHẦN SECTION CHUNG --- */
+.recommend-section {
+    position: relative;
+    padding: 100px 5%; /* Tạo khoảng trống trên dưới 100px */
+    background: #fff;
+    overflow: hidden;
+    text-align: center; /* Căn giữa toàn bộ nội dung bên trong */
+}
+
+/* --- CHỮ NỀN MỜ (WATERMARK) --- */
+.bg-watermark {
+    position: absolute;
+    top: 55%; 
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 300px; /* To theo chiều rộng màn hình */
+    font-weight: 900;
+    color: #95030d;
+    opacity: 0.9; /* Để mờ thôi bà nhé, không là bị đè chữ chính */
+    z-index: 1;
+    
+}
+
+/* --- PHẦN GIỚI THIỆU (TITLE & P) --- */
+.recommend-intro {
+    position: relative;
+    z-index: 10; /* Để chữ chính nằm trên cái chữ mờ */
+    margin-bottom: 80px; /* Khoảng cách từ chữ xuống dàn Card */
+}
+
+.recommend-intro h1 {
+    font-size: 60px; /* To và dõng dạc */
+    font-weight: 900;
+    text-transform: uppercase; /* Viết hoa toàn bộ cho sang */
+    margin-bottom: 20px;
+    letter-spacing: -2px; /* Ép sát các chữ lại nhìn rất "design" */
+    color: #111;
+}
+
+.recommend-intro p {
+    font-size: 18px;
+    color: #111;
+    font-style: italic; /* Chữ nghiêng cho nó nghệ thuật */
+    max-width: 600px; /* Giới hạn độ rộng để dòng chữ không quá dài */
+    margin: 0 auto; /* Căn giữa cái khối p này */
+    line-height: 1.6;
+}
+/* --- HỆ THỐNG GRID (TRỤC XƯƠNG SỐNG) --- */
+.recommend-grid {
+    display: grid;
+    /* Ép đúng 4 cột đều nhau, mỗi cột chiếm 1 phần diện tích (1fr) */
+    grid-template-columns: repeat(4, 1fr); 
+    
+    /* Khoảng cách giữa các card: Dọc 40px, Ngang 25px */
+    gap: 40px 25px; 
+    
+    position: relative;
+    z-index: 5;
+    max-width: 1400px;
+    margin: 0 auto; /* Căn toàn bộ khối grid ra giữa màn hình */
+}
+/* --- STYLE TỪNG CÁI CARD (KÍNH MỜ) --- */
+.rec-card {
+    /* Màu nền xám đen có độ trong suốt để thấy được chữ SNEAKERS mờ phía sau */
+    background: rgba(45, 45, 45, 0.6); 
+    
+    /* Hiệu ứng kính mờ bà thích nè */
+    backdrop-filter: blur(15px); 
+    -webkit-backdrop-filter: blur(15px);
+    
+    border: 1px solid #fff; /* Viền mảnh cho sang */
+    border-radius: 8px;
+    padding: 20px;
+    position: relative;
+    color: #fff;
+    text-align: left; /* Chữ trong card thì căn trái cho dễ đọc */
+    transition: 0.4s ease;
+}
+/* Hiệu ứng khi rê chuột vào */
+.rec-card:hover {
+    background: rgba(20, 20, 20, 0.95); /* Nền đậm hơn tí */
+}
+/* Khung trắng chứa ảnh giày bên trong card */
+.rec-img {
+    background-color: #fff;
+    border-radius: 12px;
+    height: 300px; /* Cố định chiều cao để card nào cũng cao bằng nhau */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+.rec-img img {
+    width: 95%;
+    transition: 0.5s;
+}
+/* --- BADGE TRÒN TRÊN GÓC CARD --- */
+.badge {
+    position: absolute;
+    top: -15px; /* Cho nó nhô hẳn lên trên viền card */
+    right: -5px;
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 13px;
+    font-weight: 900;
+    color: #fff;
+    border: 2px solid #fff; /* Viền trắng cho nổi trên nền card xám */
+    box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+    z-index: 20;
+}
+
+/* Các màu khác nhau cho từng loại tag */
+.no1 { background-color: #E97171; } /* Màu đỏ san hô */
+.new { background-color: #2EC1AC; } /* Màu xanh mint */
+.sale { background-color: #f0ad4e; } /* Màu cam cho giảm giá */
+
+/* --- THÔNG TIN CHỮ TRONG CARD --- */
+.rec-info h3 {
+    font-size: 15px;
+    font-weight: 800;
+    margin-bottom: 8px;
+    letter-spacing: 0.5px;
+    line-height: 1.4;
+}
+
+.rec-info .size {
+    font-size: 12px;
+    opacity: 0.7;
+    margin-bottom: 12px;
+}
+
+.rec-info .price {
+    font-size: 20px;
+    font-weight: 900;
+}
+
+.rec-info .price span {
+    font-size: 11px;
+    font-weight: normal;
+    margin-left: 5px;
+    opacity: 0.8;
+}
+
+/* Xử lý hiển thị 2 giá khi có Sale */
+.price-container {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+}
+.price-main { font-size: 20px; font-weight: 900; color: #ff8e8e; }
+.price-old { font-size: 13px; text-decoration: line-through; opacity: 0.5; }
+
+/* --- PHẦN CUỐI CỦA CARD (NÚT & TIM) --- */
+.rec-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.btn-buy {
+    background: transparent;
+    border: 1px solid #fff;
+    color: #fff;
+    padding: 8px 30px;
+    border-radius: 12px;
+    font-weight: bold;
+    font-size: 14px;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.btn-buy:hover {
+    background: #fff;
+    color: #333; /* Rê chuột vào thì nền trắng chữ đen */
+    transform: scale(1.05);
+}
+
+.heart-active {
+    font-size: 22px;
+    color: #fff; /* Trái tim trắng cho tinh tế trên nền kính mờ */
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.heart-active:hover {
+    color: #ff4d4d; /* Hover vào mới đỏ rực lên nè bà */
+    transform: scale(1.2);
+}
+
+/* --- TRẠNG THÁI SOLD OUT --- */
+
+/* Làm mờ toàn bộ card */
+.rec-card.is-sold-out {
+    opacity: 0.7; /* Làm card hơi trong suốt */
+    filter: grayscale(0.5); /* Cho màu hơi xám lại chút cho buồn */
+    pointer-events: none; /* Khóa luôn, không cho click hay hover nữa */
+}
+
+/* Cái tag SOLD OUT nằm ngay giữa tâm card */
+.sold-out-tag {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-15deg); /* Căn giữa và xoay nghiêng cho ngầu */
+    background: #000; /* Nền đen */
+    color: #fff;      /* Chữ trắng */
+    padding: 10px 25px;
+    font-size: 24px;
+    font-weight: 900;
+    border: 2px solid #fff;
+    z-index: 100; /* Nằm trên cùng của card */
+    white-space: nowrap;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+}
+
+/* Vô hiệu hóa nút bấm trong card sold out */
+.is-sold-out .btn-buy {
+    border-color: #666;
+    color: #666;
+    cursor: not-allowed;
+}
+
+/* ====REVIEW====== */
+.review-section {
+    background-color: #750209; /* Màu đỏ đô của bà */
+    padding: 80px 5%;
+    text-align: center;
+    color: #fff;
+}
+
+.review-title {
+    font-size: 3rem;
+    font-weight: 900;
+    margin-bottom: 50px;
+    letter-spacing: 2px;
+}
+
+/* --- CONTAINER CHỨA CARD --- */
+.review-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    max-width: 1400px;
+    margin: 0 auto 40px;
+}
+
+/* --- STYLE TỪNG CARD --- */
+.review-card {
+    background: #fff;
+    color: #333;
+    border-radius: 20px;
+    padding: 30px 20px;
+    flex: 1; /* Để 4 card tự chia đều chiều rộng */
+    position: relative;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+/* Icon dấu ngoặc kép */
+.quote-icon {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 60px;
+    font-family: serif;
+    color: #000;
+    line-height: 1;
+}
+
+.reviewer-avatar {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto 15px;
+}
+
+.reviewer-avatar img {
+    width: 100%;
+    height: auto;
+}
+
+.reviewer-name {
+    font-size: 1.2rem;
+    font-weight: 800;
+    margin-bottom: 5px;
+}
+
+.stars {
+    color: #f0ad4e; /* Màu vàng sao */
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+}
+
+.review-text {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: #555;
+    text-align: justify; /* Cho chữ dàn đều cho đẹp */
+}
+
+/* --- PHẦN THANH TRƯỢT (PAGINATION) --- */
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.dot {
+    width: 50px;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.dot.active {
+    background: #fff;
+}
+/* ===FOOTER==== */
+.sneaker-footer {
+    margin-top: 40px;
+    background-color: #000; /* Đen tuyền chuẩn bài */
+    color: #fff;
+    padding: 60px 5% 30px;
+    text-align: center;
+}
+
+/* --- PHẦN TOP: MENU & LOGO --- */
+.footer-top {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 100px; /* Khoảng cách giữa các cụm chữ */
+    margin-bottom: 50px;
+}
+
+.footer-nav {
+    display: flex;
+    gap: 40px;
+}
+
+.footer-nav a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    transition: 0.3s;
+}
+
+.footer-nav a:hover {
+    color: #750209; /* Hover ra màu đỏ đô cho đồng bộ nè */
+}
+
+.footer-logo {
+    font-size: 40px;
+    font-weight: 900;
+    white-space: nowrap;
+}
+
+/* --- PHẦN BOTTOM: ICONS --- */
+.footer-bottom {
+    display: flex;
+    justify-content: space-between; /* Đẩy 2 cụm icon về 2 bên */
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-top: 30px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1); /* Đường kẻ mờ ngăn cách */
+}
+
+.social-icons {
+    display: flex;
+    gap: 25px;
+}
+
+.social-icons a {
+    color: #fff;
+    font-size: 24px;
+    transition: 0.3s;
+}
+
+.social-icons a:hover {
+    transform: translateY(-5px); /* Nhích nhẹ lên khi hover */
+}
+
+.payment-methods {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.payment-methods img {
+    height: 35px; /* Cố định độ cao cho các logo thanh toán đều nhau */
+    filter: brightness(0.8); /* Hơi tối xuống tí cho sang */
+}
+
+.copyright {
+    margin-top: 40px;
+    font-size: 12px;
+    opacity: 0.5;
+}
+
+/* --- RESPONSIVE CHO ĐIỆN THOẠI --- */
+@media (max-width: 768px) {
+    .footer-top {
+        flex-direction: column;
+        gap: 30px;
+    }
+    .footer-bottom {
+        flex-direction: column;
+        gap: 40px;
+    }
+}
